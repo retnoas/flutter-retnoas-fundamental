@@ -21,40 +21,60 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   final String title;
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController firstController = TextEditingController();
+  final TextEditingController secondController = TextEditingController();
+  double result = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Result = 0',
+              'Result = $result',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               textAlign: TextAlign.left,
               textDirection: TextDirection.ltr,
             ),
             SizedBox(height: 16), // add vertical space of 16 pixels
             TextField(
+              controller: firstController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                hintText: 'Enter first number',
-              ),
+                  labelText: 'Enter first number',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20))),
             ),
             SizedBox(height: 16), // add vertical space of 16 pixels
             TextField(
+              controller: secondController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                hintText: 'Enter last number',
-              ),
+                  labelText: 'Enter last number',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20))),
             ),
             SizedBox(height: 16), // add vertical space of 16 pixels
             ElevatedButton(
               onPressed: () {
+                double a = double.parse(firstController.text);
+                double b = double.parse(secondController.text);
+                setState(() {
+                  result = a + b;
+                });
                 // Action when button is pressed
               },
               child: Text('Add'),
@@ -62,6 +82,11 @@ class MyHomePage extends StatelessWidget {
             SizedBox(height: 16), // add vertical space of 16 pixels
             ElevatedButton(
               onPressed: () {
+                double a = double.parse(firstController.text);
+                double b = double.parse(secondController.text);
+                setState(() {
+                  result = a - b;
+                });
                 // Action when button is pressed
               },
               child: Text('Substract'),
@@ -69,6 +94,11 @@ class MyHomePage extends StatelessWidget {
             SizedBox(height: 16), // add vertical space of 16 pixels
             ElevatedButton(
               onPressed: () {
+                double a = double.parse(firstController.text);
+                double b = double.parse(secondController.text);
+                setState(() {
+                  result = a * b;
+                });
                 // Action when button is pressed
               },
               child: Text('Multiply'),
@@ -76,6 +106,11 @@ class MyHomePage extends StatelessWidget {
             SizedBox(height: 16), // add vertical space of 16 pixels
             ElevatedButton(
               onPressed: () {
+                double a = double.parse(firstController.text);
+                double b = double.parse(secondController.text);
+                setState(() {
+                  result = a / b;
+                });
                 // Action when button is pressed
               },
               child: Text('Divide'),
